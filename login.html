@@ -18,7 +18,39 @@
 
 <body>
   <main class="mt-5">
-
+    <div class="container-sd" style="max-width: 500px; margin: 0 auto; padding-top: 100px;">
+      <div class="row justify-content-center gy-5">
+        <div class="col-9 text-center">
+          <div class="row">
+            <img src="img/login.png" alt="" class="img-fluid">
+          </div>
+          <div class="row pt-5">
+            <h3><b>Inicio de sesion</b></h3>
+          </div>
+          <div class="row pt-3">
+            <form action="/index.html" class="form-floating text-center" id="formLogin" onsubmit="return checkForm()">
+              <h5>Email</h5>
+              <div class="form-floating mb-3">
+                <input type="email" class="form-control" id ="floatingInputValue" placeholder="Email">
+                <label for="floatingInputValue">Email</label>
+                <div class="invalid-feedback text-center">
+                  Ingresa tu e-mail
+                </div>
+              </div>
+              <h5>Contraseña</h5>
+              <div class="form-floating mb-3">
+                <input type="password" class="form-control" id ="floatpass" placeholder="Contraseña">
+                <label for="floatpass">Contraseña</label>
+                <div class="invalid-feedback text-center">
+                  Ingresa tu contraseña
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary" style="width: 100px;" id="loginBtn">Ingresar</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
   </main>
   <footer class="text-muted">
     <div class="container">
