@@ -12,9 +12,9 @@ document.addEventListener('DOMContentLoaded', function(e){
 //Presenta en la pagina la informacion obtenida
 function showProducts(){
     const prodCont = document.getElementById('prod-container')
-    for(let i = 0; i < productsArray.length; i++){
-        let product = productsArray[i];
-
+    //for(let i = 0; i < productsArray.length; i++){
+        //let product = productsArray[i];
+    for(let product of productsArray){
             prodCont.innerHTML += `
             <div class="list-group-item list-group-item-action cursor-active">
                 <div class="row">
