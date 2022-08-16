@@ -23,5 +23,5 @@ function onSignIn(googleUser) {
     console.log('Name: ' + profile.getName());
     console.log('Image URL: ' + profile.getImageUrl());
     console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-    window.location.url('indexAfterLogin.html')
+    window.location.href = "https://gabriel-gb97.github.io/proyecto.e-commerce/indexAfterLogin.html"
   }
