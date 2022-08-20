@@ -46,10 +46,21 @@
                   Ingresa tu contraseña
                 </div>
               </div>
-              <div class="row">
-                <div class="g-signin2" data-onsuccess="onSignIn"></div>
+              <div class="row mb-3">
+                <div id="g_id_onload"
+                  data-client_id="845725697445-1eo0jc4ur0gqlqfdd193rpru69svqm0f.apps.googleusercontent.com"
+                  data-callback= "callback">
+                </div>
+                <div class="g_id_signin"
+                  data-type="standard"
+                  data-shape="rectangular"
+                  data-theme="filled_blue"
+                  data-text="$ {button.text}"
+                  data-size="medium"
+                  data-logo_alignment="left">
+                </div>
               </div>
-              <div class="row">
+              <div class="row justify-content-center">
                 <button type="submit" class="btn btn-primary" style="width: 100px;" id="loginBtn">Ingresar</button>
               </div>      
             </form>
@@ -70,7 +81,7 @@
     </div>
   </footer>
   <script src="js/login.js"></script>
-  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
 </body>
 
 </html>
