@@ -1,10 +1,15 @@
-//Peticion de informacion al api
-const url = "https://japceibal.github.io/emercado-api/cats_products/101.json"
+//Tomar el valor de la categoria seleccionada en la seccion de categorias
+let catId = localStorage.getItem('catID')
+const url =  `https://japceibal.github.io/emercado-api/cats_products/${catId}.json`
+
+//Peticion de informacion al api y escritura del html
 document.addEventListener('DOMContentLoaded', function(e){
     getJSONData(url).then((result) => {
         if(result.status == 'ok'){
+            document.getElementById('catName').innerHTML = result.data.catName
             productsArray = result.data.products
             showProducts()
+            
         }
     })
 })
@@ -12,8 +17,6 @@ document.addEventListener('DOMContentLoaded', function(e){
 //Presenta en la pagina la informacion obtenida
 function showProducts(){
     const prodCont = document.getElementById('prod-container')
-    //for(let i = 0; i < productsArray.length; i++){
-        //let product = productsArray[i];
     for(let product of productsArray){
             prodCont.innerHTML += `
             <div class="list-group-item list-group-item-action cursor-active">
