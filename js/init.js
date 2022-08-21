@@ -39,3 +39,11 @@ let getJSONData = function(url){
         return result;
     });
 }
+
+if(!localStorage.getItem('login')){
+  window.location.href = 'login.html'
+}
+
+logout.addEventListener('click', () =>{
+  localStorage.removeItem('login')
+})

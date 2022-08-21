@@ -14,9 +14,11 @@ function checkForm(e){
         if(i.value == '')
         return false
     }
+    localStorage.setItem('login', true)
 
 }
 
 function callback(){
+    localStorage.setItem('login', true)
     window.location.href = "https://gabriel-gb97.github.io/proyecto.e-commerce/indexAfterLogin.html?"
 }
