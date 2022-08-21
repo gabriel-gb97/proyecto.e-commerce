@@ -20,5 +20,5 @@ function checkForm(e){
 
 function callback(){
     localStorage.setItem('login', true)
-    window.location.href = "https://gabriel-gb97.github.io/proyecto.e-commerce/indexAfterLogin.html?"
+    window.location.href = "https://gabriel-gb97.github.io/proyecto.e-commerce/index.html?"
 }
