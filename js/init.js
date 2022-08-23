@@ -47,3 +47,5 @@ if(!localStorage.getItem('login')){
 logout.addEventListener('click', () =>{
   localStorage.removeItem('login')
 })
+
+document.getElementById('dropprofile').innerHTML = localStorage.getItem('regEmail')

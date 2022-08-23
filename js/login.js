@@ -15,6 +15,7 @@ function checkForm(e){
         return false
     }
     localStorage.setItem('login', true)
+    localStorage.setItem('regEmail', floatemail.value)
 
 }
 

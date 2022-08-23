@@ -1,6 +1,12 @@
-//Tomar el valor de la categoria seleccionada en la seccion de categorias
 const catId = localStorage.getItem('catID')
 const url =  `https://japceibal.github.io/emercado-api/cats_products/${catId}.json`
+const ASC_BY_PRICE = "UP";
+const DESC_BY_PRICE = "DW";
+const ORDER_BY_PRICE= "Precio.";
+let currentCategoriesArray = [];
+let currentSortCriteria = undefined;
+let minPrice = undefined;
+let maxPrice = undefined;
 
 //Peticion de informacion al api y escritura del html
 document.addEventListener('DOMContentLoaded', function(e){
@@ -8,18 +14,65 @@ document.addEventListener('DOMContentLoaded', function(e){
     .then((result) => {
         if(result.status == 'ok'){
             document.getElementById('catName').innerHTML = result.data.catName
-            return productsArray = result.data.products;
+            productsArray = result.data.products;
+            showProducts()
           }})
-    .then((productsArray) => {
-        showProducts()
-    })
+
+    document.getElementById("sortAsc").addEventListener("click", function(){
+        sortAndShowProducts(ASC_BY_PRICE);
+    });
+
+    document.getElementById("sortDesc").addEventListener("click", function(){
+        sortAndShowProducts(DESC_BY_PRICE);
+    });
+
+    document.getElementById("sortByCount").addEventListener("click", function(){
+        sortAndShowProducts(ORDER_BY_PRICE);
+    });
+
+    document.getElementById("clearRangeFilter").addEventListener("click", function(){
+        document.getElementById("rangeFilterPriceMin").value = "";
+        document.getElementById("rangeFilterPriceMax").value = "";
+
+        minPrice = undefined;
+        maxPrice = undefined;
+
+        showProducts();
+    });
+
+    document.getElementById("rangeFilterPrice").addEventListener("click", function(){
+        //Obtengo el mínimo y máximo de los intervalos para filtrar por cantidad
+        //de productos por categoría.
+        minPrice = document.getElementById("rangeFilterPriceMin").value;
+        maxPrice = document.getElementById("rangeFilterPriceMax").value;
+
+        if ((minPrice != undefined) && (minPrice != "") && (parseInt(minPrice)) >= 0){
+            minPrice = parseInt(minPrice);
+        }
+        else{
+            minPrice = undefined;
+        }
+
+        if ((maxPrice != undefined) && (maxPrice != "") && (parseInt(maxPrice)) >= 0){
+            maxPrice = parseInt(maxPrice);
+        }
+        else{
+            maxPrice = undefined;
+        }
+
+        showProducts();
+    });
 })
 
 //Presenta en la pagina la informacion obtenida
 function showProducts(){
+    let toAppend = []
     const prodCont = document.getElementById('prod-container')
     for(let product of productsArray){
-            prodCont.innerHTML += `
+        //if de la muerte
+        if(((minPrice == undefined) || ((minPrice != undefined) && (product.cost >= minPrice))) &&
+           ((maxPrice == undefined) || ((maxPrice != undefined) && (product.cost <= maxPrice)))){
+            toAppend += `
             <div class="list-group-item list-group-item-action cursor-active">
                 <div class="row">
                     <div class="col-3">
@@ -35,5 +88,41 @@ function showProducts(){
                 </div>
             </div>
             `
+           }
+            
+        prodCont.innerHTML = toAppend
     }
+}
+
+function sortProducts(criteria, array){
+    let result = [];
+    if (criteria === ASC_BY_PRICE)
+    {
+        result = array.sort(function(a, b){
+            return a.cost - b.cost
+        });
+    }else if (criteria === DESC_BY_PRICE){
+        result = array.sort(function(a, b) {
+            return b.cost - a.cost
+        });
+    }else if (criteria === ORDER_BY_PRICE){
+        result = array.sort(function(a, b) {
+            return b.soldCount - a.soldCount
+        });
+    }
+
+    return result;
+}
+
+function sortAndShowProducts(sortCriteria, categoriesArray){
+    currentSortCriteria = sortCriteria;
+
+    if(categoriesArray != undefined){
+        currentCategoriesArray = categoriesArray;
+    }
+
+    productsArray = sortProducts(currentSortCriteria, productsArray);
+
+    //Muestro las categorías ordenadas
+    showProducts();
 }
