@@ -45,6 +45,7 @@ if(!localStorage.getItem('login')){
 }
 
 logout.addEventListener('click', () =>{
+  google.accounts.id.disableAutoSelect()
   localStorage.removeItem('login')
 })
 

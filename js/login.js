@@ -19,7 +19,14 @@ function checkForm(e){
 
 }
 
-function callback(){
+function callback(response){
+    const JWTpayload = decodeJWT(response.credential)
+    localStorage.setItem('regEmail', JWTpayload.email)
     localStorage.setItem('login', true)
     window.location.href = "index.html"
+}
+
+function decodeJWT(data){
+    let tokens = data.split(".");
+    return JSON.parse(atob(tokens[1]))
 }
