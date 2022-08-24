@@ -73,7 +73,7 @@ function showProducts(){
         if(((minPrice == undefined) || ((minPrice != undefined) && (product.cost >= minPrice))) &&
            ((maxPrice == undefined) || ((maxPrice != undefined) && (product.cost <= maxPrice)))){
             toAppend += `
-            <div class="list-group-item list-group-item-action cursor-active">
+            <div class="products list-group-item list-group-item-action cursor-active">
                 <div class="row">
                     <div class="col-3">
                         <img src="${product.image}" alt="${product.description}" class="img-thumbnail">
@@ -114,11 +114,11 @@ function sortProducts(criteria, array){
     return result;
 }
 
-function sortAndShowProducts(sortCriteria, categoriesArray){
+function sortAndShowProducts(sortCriteria, prodArray){
     currentSortCriteria = sortCriteria;
 
-    if(categoriesArray != undefined){
-        currentCategoriesArray = categoriesArray;
+    if(prodArray != undefined){
+        productsArray = prodArray;
     }
 
     productsArray = sortProducts(currentSortCriteria, productsArray);
@@ -126,3 +126,19 @@ function sortAndShowProducts(sortCriteria, categoriesArray){
     //Muestro las categorías ordenadas
     showProducts();
 }
+
+searchbar.addEventListener('input', (e) => {
+    let searchInput = e.target.value;
+    const listItems = document.querySelectorAll('.products')
+
+    listItems.forEach((item) => {
+        text = item.innerText
+        if(text.toLowerCase().includes(searchInput.toLowerCase())){
+            item.style.display = ''
+        }else{
+            item.style.display = 'none'
+        }
+    })
+    
+
+})
