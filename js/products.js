@@ -128,17 +128,28 @@ function sortAndShowProducts(sortCriteria, prodArray){
 }
 
 searchbar.addEventListener('input', (e) => {
-    let searchInput = e.target.value;
+    let searchInput = e.target.value.split(' ');
     const listItems = document.querySelectorAll('.products')
 
     listItems.forEach((item) => {
         text = item.innerText
-        if(text.toLowerCase().includes(searchInput.toLowerCase())){
-            item.style.display = ''
+        if(Object.keys(searchInput).length > 1){
+            for(let i = 0; i < Object.keys(searchInput).length ; i++){
+                if((text.toLowerCase().includes(searchInput[i].toLowerCase())) && 
+                (searchInput[i] != "")){
+                    item.style.display = ''
+                    break
+                }else{
+                    item.style.display = 'none'
+                    break
+                }
+            }
         }else{
-            item.style.display = 'none'
+            if(text.toLowerCase().includes(searchInput[0].toLowerCase())){
+                item.style.display = ''
+            }else{
+                item.style.display = 'none'
+            }
         }
     })
-    
-
 })
