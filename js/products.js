@@ -41,8 +41,6 @@ document.addEventListener('DOMContentLoaded', function(e){
     });
 
     document.getElementById("rangeFilterPrice").addEventListener("click", function(){
-        //Obtengo el mínimo y máximo de los intervalos para filtrar por cantidad
-        //de productos por categoría.
         minPrice = document.getElementById("rangeFilterPriceMin").value;
         maxPrice = document.getElementById("rangeFilterPriceMax").value;
 
@@ -69,7 +67,6 @@ function showProducts(){
     let toAppend = []
     const prodCont = document.getElementById('prod-container')
     for(let product of productsArray){
-        //if de la muerte
         if(((minPrice == undefined) || ((minPrice != undefined) && (product.cost >= minPrice))) &&
            ((maxPrice == undefined) || ((maxPrice != undefined) && (product.cost <= maxPrice)))){
             toAppend += `
@@ -120,10 +117,7 @@ function sortAndShowProducts(sortCriteria, prodArray){
     if(prodArray != undefined){
         productsArray = prodArray;
     }
-
     productsArray = sortProducts(currentSortCriteria, productsArray);
-
-    //Muestro las categorías ordenadas
     showProducts();
 }
 
@@ -133,7 +127,12 @@ searchbar.addEventListener('input', (e) => {
 
     listItems.forEach((item) => {
         text = item.innerText
+        //Object.keys, para poder acceder al objeto como un array y usar el atributo .length
         if(Object.keys(searchInput).length > 1){
+            //Uso el for tradicional, para poder indexar correctamente el array searchInput
+            //Usando el for, puedo hacer la busqueda mas compleja, 
+            //dividiendo lo ingresado en distintos elementos spliteados por el espacio
+            //para que busque por mas de una palabra ingresada
             for(let i = 0; i < Object.keys(searchInput).length ; i++){
                 if((text.toLowerCase().includes(searchInput[i].toLowerCase())) && 
                 (searchInput[i] != "")){
