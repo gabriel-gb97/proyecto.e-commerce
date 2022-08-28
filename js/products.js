@@ -3,8 +3,6 @@ const url =  `https://japceibal.github.io/emercado-api/cats_products/${catId}.js
 const ASC_BY_PRICE = "UP";
 const DESC_BY_PRICE = "DW";
 const ORDER_BY_PRICE= "Precio.";
-let currentCategoriesArray = [];
-let currentSortCriteria = undefined;
 let minPrice = undefined;
 let maxPrice = undefined;
 
@@ -112,21 +110,20 @@ function sortProducts(criteria, array){
 }
 
 function sortAndShowProducts(sortCriteria, prodArray){
-    currentSortCriteria = sortCriteria;
-
     if(prodArray != undefined){
         productsArray = prodArray;
     }
-    productsArray = sortProducts(currentSortCriteria, productsArray);
+    productsArray = sortProducts(sortCriteria, productsArray);
     showProducts();
 }
 
+//Desafiate, realtime searchbar 
 searchbar.addEventListener('input', (e) => {
     let searchInput = e.target.value.split(' ');
     const listItems = document.querySelectorAll('.products')
 
     listItems.forEach((item) => {
-        text = item.innerText
+        text = item.innerText;
         //Object.keys, para poder acceder al objeto como un array y usar el atributo .length
         if(Object.keys(searchInput).length > 1){
             //Uso el for tradicional, para poder indexar correctamente el array searchInput
@@ -140,7 +137,8 @@ searchbar.addEventListener('input', (e) => {
                     break
                 }else{
                     item.style.display = 'none'
-                    break
+                    break 
+                    //borrando el break, funciona como una busqueda tipo or, con el break, tipo and
                 }
             }
         }else{
