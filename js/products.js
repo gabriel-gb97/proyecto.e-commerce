@@ -2,7 +2,7 @@ const catId = localStorage.getItem('catID')
 const url =  `https://japceibal.github.io/emercado-api/cats_products/${catId}.json`
 const ASC_BY_PRICE = "UP";
 const DESC_BY_PRICE = "DW";
-const ORDER_BY_PRICE= "Precio.";
+const ORDER_BY_SOLD_COUNT= "SC";
 let minPrice = undefined;
 let maxPrice = undefined;
 
@@ -16,26 +16,16 @@ document.addEventListener('DOMContentLoaded', function(e){
             showProducts()
           }})
 
-    document.getElementById("sortAsc").addEventListener("click", function(){
-        sortAndShowProducts(ASC_BY_PRICE);
+    document.getElementById("AscPrice").addEventListener("click", function(){
+        sortAndShowProducts(ASC_BY_PRICE, productsArray);
     });
 
-    document.getElementById("sortDesc").addEventListener("click", function(){
-        sortAndShowProducts(DESC_BY_PRICE);
+    document.getElementById("DescPrice").addEventListener("click", function(){
+        sortAndShowProducts(DESC_BY_PRICE, productsArray);
     });
 
-    document.getElementById("sortByCount").addEventListener("click", function(){
-        sortAndShowProducts(ORDER_BY_PRICE);
-    });
-
-    document.getElementById("clearRangeFilter").addEventListener("click", function(){
-        document.getElementById("rangeFilterPriceMin").value = "";
-        document.getElementById("rangeFilterPriceMax").value = "";
-
-        minPrice = undefined;
-        maxPrice = undefined;
-
-        showProducts();
+    document.getElementById("sortSoldCount").addEventListener("click", function(){
+        sortAndShowProducts(ORDER_BY_SOLD_COUNT, productsArray);
     });
 
     document.getElementById("rangeFilterPrice").addEventListener("click", function(){
@@ -55,6 +45,16 @@ document.addEventListener('DOMContentLoaded', function(e){
         else{
             maxPrice = undefined;
         }
+
+        showProducts();
+    });
+
+    document.getElementById("clearRangeFilter").addEventListener("click", function(){
+        document.getElementById("rangeFilterPriceMin").value = "";
+        document.getElementById("rangeFilterPriceMax").value = "";
+
+        minPrice = undefined;
+        maxPrice = undefined;
 
         showProducts();
     });
@@ -89,32 +89,18 @@ function showProducts(){
     }
 }
 
-function sortProducts(criteria, array){
+//Ordena array y lo muestra en la pagina ordenado
+function sortAndShowProducts(criteria, array){
     let result = [];
     if (criteria === ASC_BY_PRICE)
-    {
-        result = array.sort(function(a, b){
-            return a.cost - b.cost
-        });
+    {   result = array.sort(function(a, b) {return a.cost - b.cost});
     }else if (criteria === DESC_BY_PRICE){
-        result = array.sort(function(a, b) {
-            return b.cost - a.cost
-        });
-    }else if (criteria === ORDER_BY_PRICE){
-        result = array.sort(function(a, b) {
-            return b.soldCount - a.soldCount
-        });
+        result = array.sort(function(a, b) {return b.cost - a.cost});
+    }else if (criteria === ORDER_BY_SOLD_COUNT){
+        result = array.sort(function(a, b) {return b.soldCount - a.soldCount});
     }
-
-    return result;
-}
-
-function sortAndShowProducts(sortCriteria, prodArray){
-    if(prodArray != undefined){
-        productsArray = prodArray;
-    }
-    productsArray = sortProducts(sortCriteria, productsArray);
-    showProducts();
+    productsArray = result;
+    showProducts()
 }
 
 //Desafiate, realtime searchbar 
