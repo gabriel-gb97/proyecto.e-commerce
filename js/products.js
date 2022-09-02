@@ -17,15 +17,18 @@ document.addEventListener('DOMContentLoaded', function(e){
           }})
 
     document.getElementById("AscPrice").addEventListener("click", function(){
-        sortAndShowProducts(ASC_BY_PRICE, productsArray);
+        //sortAndShowProducts(ASC_BY_PRICE, productsArray);
+        sortAndShowProd("UP", productsArray);
     });
 
     document.getElementById("DescPrice").addEventListener("click", function(){
-        sortAndShowProducts(DESC_BY_PRICE, productsArray);
+        //sortAndShowProducts(DESC_BY_PRICE, productsArray);
+        sortAndShowProd("DW", productsArray);
     });
 
     document.getElementById("sortSoldCount").addEventListener("click", function(){
-        sortAndShowProducts(ORDER_BY_SOLD_COUNT, productsArray);
+        //sortAndShowProducts(ORDER_BY_SOLD_COUNT, productsArray);
+        sortAndShowProd("SC", productsArray);
     });
 
     document.getElementById("rangeFilterPrice").addEventListener("click", function(){
@@ -101,6 +104,17 @@ function sortAndShowProducts(criteria, array){
     }
     productsArray = result;
     showProducts()
+}
+
+function sortAndShowProd(crit, array){
+    
+    const sorting = {
+        "UP": () => array.sort(function(a, b) { return a.cost - b.cost }),
+        "DW": () => array.sort(function(a, b) { return b.cost - a.cost}),
+        "SC": () => array.sort(function(a, b){ return b.soldCount - a.soldCount}),      
+    }
+    productsArray = sorting[crit]();
+    showProducts();
 }
 
 //Desafiate, realtime searchbar 
