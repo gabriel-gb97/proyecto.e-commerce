@@ -33,8 +33,9 @@ document.addEventListener('DOMContentLoaded', () => {
             `
             for(let i = 0; i < images.length ; i++){
                 document.getElementById('img-container').innerHTML += `
-                <div class="card" style="width: 25%;">
-                <img src="${images[i]}" class="card-img img-thumbnail" alt="...">
+                <div class="card gx-4" style="width: 25%;">
+                    <img src="${images[i]}" class="card-img img-thumbnail" alt="...">
+                </div>
                 `
             }
         })
@@ -64,18 +65,18 @@ function showComment(user, dateTime, description){
     document.getElementById('comment-list').innerHTML += `
     <li class="list-group-item d-flex justify-content-between align-items-start">
         <div class="ms-2 me-auto">
-        <div>
-            <span class="fw-bold">${user}</span> - ${dateTime} -
-            <span class = 'stars'> 
-                <span class="fa fa-star"></span>
-                <span class="fa fa-star"></span>
-                <span class="fa fa-star"></span>
-                <span class="fa fa-star"></span>
-                <span class="fa fa-star"></span>
-            </span>
-        </div>
-        <p class='text-muted mb-0 pt-1'>${description}</p>
-    </div>   
+            <div>
+                <span class="fw-bold">${user}</span> - ${dateTime} -
+                <span class = 'stars'> 
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span>
+                </span>
+            </div>
+            <p class='text-muted mb-0 pt-1'>${description}</p>
+        </div>   
     </li>
     `
 }
