@@ -1,6 +1,7 @@
-const prodID = localStorage.getItem('prodID')
-const URL = `https://japceibal.github.io/emercado-api/products/${prodID}.json`
-const commURL = `https://japceibal.github.io/emercado-api/products_comments/${prodID}.json`
+const prodID = localStorage.getItem('prodID');
+const URL = `https://japceibal.github.io/emercado-api/products/${prodID}.json`;
+const commURL = `https://japceibal.github.io/emercado-api/products_comments/${prodID}.json`;
+const loggedUser = localStorage.getItem('regEmail').split('@')[0];
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -66,7 +67,7 @@ function showComment(user, dateTime, description){
     <li class="list-group-item d-flex justify-content-between align-items-start">
         <div class="ms-2 me-auto">
             <div>
-                <span class="fw-bold">${user}</span> - ${dateTime} -
+                <span class="fw-bold user">${user}</span> - ${dateTime} -
                 <span class = 'stars'> 
                     <span class="fa fa-star"></span>
                     <span class="fa fa-star"></span>
@@ -83,18 +84,20 @@ function showComment(user, dateTime, description){
 
 //Desafiate
 document.getElementById("opinion").addEventListener('click', () => {
-    let user = localStorage.getItem('regEmail').split('@')[0]
+    if(checkUserComment()){
+        return
+    };
     let date = new Date();
 	let dateFormat = date.getFullYear()+"-"+(date.getMonth()+1)+"-"+ date.getDate();
 	let timeFormat = date.getHours()+":"+date.getMinutes()+":"+ date.getSeconds();
 	let dateTime = dateFormat+" "+timeFormat;	
-    const description = document.getElementById('description').value;
-    const puntuation = document.getElementById('punt').value;
+    const description = document.getElementById('description');
+    const puntuation = document.getElementById('punt');
     document.getElementById('comment-list').innerHTML += `
         <li class="list-group-item d-flex justify-content-between align-items-start">
             <div class="ms-2 me-auto">
                 <div>
-                    <span class="fw-bold">${user}</span> - ${dateTime} -
+                    <span class="fw-bold user">${loggedUser}</span> - ${dateTime} -
                     <span class = 'stars' > 
                         <span class="fa fa-star"></span>
                         <span class="fa fa-star"></span>
@@ -103,14 +106,26 @@ document.getElementById("opinion").addEventListener('click', () => {
                         <span class="fa fa-star"></span>
                     </span>
                 </div>
-                <p class='text-muted mb-0 pt-1'>${description}</p>
+                <p class='text-muted mb-0 pt-1'>${description.value}</p>
             </div>   
         </li>
-    `
+    `;
 
-    for(let i = 0; i < puntuation; i ++){
+    for(let i = 0; i < puntuation.value; i ++){
         document.querySelectorAll('.stars')[document.querySelectorAll('.stars').length -1]
         .children[i].classList.add('checked')
-    }
+    };
+    description.value = '';
+    puntuation.value = 1;
 })
+
+function checkUserComment() {
+    let usersComment = document.querySelectorAll('.user');
+    for(let user of usersComment){
+        if(user.innerHTML == loggedUser){
+            alert('Ya ha introducido un comentario en este producto.');
+            return true;
+        }
+    ;}    
+}
 

@@ -115,7 +115,7 @@ searchbar.addEventListener('input', (e) => {
                     break;
                 }else{
                     item.style.display = 'none';
-                    break;
+                    ;
                     //borrando el break, funciona como una busqueda tipo or, con el break, tipo and
                 }
             };
