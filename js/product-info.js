@@ -21,9 +21,9 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('itemName').innerHTML = name
             document.getElementById('item-cont').innerHTML = `
             <h5><strong>Precio</strong></h5>
-            <p>${currency} 2400</p>
+            <p>${currency} ${cost}</p>
             <h5><strong>Descripcion</strong></h5>
-            <p>${description} ${cost}</p>
+            <p>${description}</p>
             <h5><strong>Categoria</strong></h5>
             <p>${category}</p>
             <h5><strong>Cantidad de vendidos</strong></h5>
@@ -53,27 +53,32 @@ document.addEventListener('DOMContentLoaded', () => {
                 const {dateTime, description,user} = comment
                 showComment(user, dateTime, description);
             }
-
+            
             document.querySelectorAll('.stars').forEach((comment, index) => {
                 for(let i = 0; i < commArray[index].score; i++){
                     comment.children[i].classList.add('checked')
                 }
-            })    
+            })
+            if(localStorage.getItem(`${prodID}`) != null){
+                document.getElementById('comment-list').innerHTML += localStorage.getItem(`${prodID}`)
+            }
+            
+             
         })  
 })
 
-function showComment(user, dateTime, description){
+function showComment(user, dateTime, description,){
     document.getElementById('comment-list').innerHTML += `
-    <li class="list-group-item d-flex justify-content-between align-items-start">
+    <li class="list-group-item d-flex justify-content-between align-items-start comments">
         <div class="ms-2 me-auto">
             <div>
                 <span class="fw-bold user">${user}</span> - ${dateTime} -
-                <span class = 'stars'> 
+                <span class = 'stars' >
                     <span class="fa fa-star"></span>
                     <span class="fa fa-star"></span>
                     <span class="fa fa-star"></span>
                     <span class="fa fa-star"></span>
-                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span>     
                 </span>
             </div>
             <p class='text-muted mb-0 pt-1'>${description}</p>
@@ -94,7 +99,7 @@ document.getElementById("opinion").addEventListener('click', () => {
     const description = document.getElementById('description');
     const puntuation = document.getElementById('punt');
     document.getElementById('comment-list').innerHTML += `
-        <li class="list-group-item d-flex justify-content-between align-items-start">
+        <li class="list-group-item d-flex justify-content-between align-items-start usercomments">
             <div class="ms-2 me-auto">
                 <div>
                     <span class="fw-bold user">${loggedUser}</span> - ${dateTime} -
@@ -117,6 +122,16 @@ document.getElementById("opinion").addEventListener('click', () => {
     };
     description.value = '';
     puntuation.value = 1;
+    toLocalS = ""
+    for(let userComm of document.querySelectorAll('.usercomments')){
+        toLocalS += `
+        <li class="list-group-item d-flex justify-content-between align-items-start usercomments">
+            ${userComm.innerHTML}
+        </li>
+        `
+        
+    }
+    localStorage.setItem(`${prodID}`, toLocalS )
 })
 
 function checkUserComment() {
