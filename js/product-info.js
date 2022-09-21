@@ -3,7 +3,6 @@ const URL = `https://japceibal.github.io/emercado-api/products/${prodID}.json`;
 const commURL = `https://japceibal.github.io/emercado-api/products_comments/${prodID}.json`;
 const loggedUser = localStorage.getItem('regEmail').split('@')[0];
 
-
 document.addEventListener('DOMContentLoaded', () => {
     let result = {}
     getJSONData(URL)
@@ -17,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const {data: itemArray} = result;
             const { category, cost, 
                     currency, description, 
-                    images, name, soldCount } = itemArray
+                    images, name, soldCount, relatedProducts } = itemArray
             document.getElementById('itemName').innerHTML = name
             document.getElementById('item-cont').innerHTML = `
             <h5><strong>Precio</strong></h5>
@@ -28,17 +27,50 @@ document.addEventListener('DOMContentLoaded', () => {
             <p>${category}</p>
             <h5><strong>Cantidad de vendidos</strong></h5>
             <p>${soldCount} vendidos</p>
-            <h5 class="pb-1"><strong>Imagenes ilustrativas</strong></h5>
-            <div class="row pt-2" id='img-container'>
-            </div>
             `
             for(let i = 0; i < images.length ; i++){
+                if(i == 0){
                 document.getElementById('img-container').innerHTML += `
-                <div class="card gx-4" style="width: 25%;">
-                    <img src="${images[i]}" class="card-img img-thumbnail" alt="...">
+                <div class="carousel-item active" style='height: 400px'>
+                  <img src="${images[i]}" class="d-block w-100" alt="..." style="max-height:100%">
+                </div>
+                `
+                document.getElementById('indicators').innerHTML += `
+                <button style="width: 25%" type="button" data-bs-target="#productCarousel" data-bs-slide-to="${i}" class="active" aria-current="true" aria-label="Slide ${i+1}">
+                    <img src="${images[i]}" style="height: auto; object-fit: cover" class="d-block w-100" alt="...">
+                </button>
+                `
+                } else{
+                document.getElementById('img-container').innerHTML += `
+                <div class="carousel-item" style='height: 400px'>
+                  <img src="${images[i]}" class="d-block w-100" style="max-height:100%;"  alt="...">
+                </div>
+                `
+                document.getElementById('indicators').innerHTML += `
+                <button style="width: 25%" type="button" data-bs-target="#productCarousel" data-bs-slide-to="${i}" aria-label="Slide ${i+1}">
+                    <img src="${images[i]}" style="height: auto; object-fit: cover" class="d-block w-100" alt="...">
+                </button>
+                `
+                }
+
+                
+                
+            }
+
+            for(let relProd of relatedProducts){
+                const {image, name, id} = relProd;
+                relatedCont.innerHTML += `
+                <div onclick="setProdID(${id})" class="card m-3 list-group-item list-group-item-action cursor-active" style="width: 25%; border: solid lightgrey 1px; padding: 0">
+                    <img src="${image}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <p class="card-text">
+                            ${name}
+                        </p>
+                    </div>
                 </div>
                 `
             }
+            
         })
     
     getJSONData(commURL)
@@ -66,6 +98,11 @@ document.addEventListener('DOMContentLoaded', () => {
              
         })  
 })
+
+function setProdID(id){
+    localStorage.setItem('prodID', id)
+    window.location.href = 'product-info.html'
+}
 
 function showComment(user, dateTime, description,){
     document.getElementById('comment-list').innerHTML += `
