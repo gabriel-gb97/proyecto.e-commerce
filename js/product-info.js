@@ -2,6 +2,8 @@ const prodID = localStorage.getItem('prodID');
 const URL = `https://japceibal.github.io/emercado-api/products/${prodID}.json`;
 const commURL = `https://japceibal.github.io/emercado-api/products_comments/${prodID}.json`;
 const loggedUser = localStorage.getItem('regEmail').split('@')[0];
+let toCartS = {};
+const toastLiveExample = document.getElementById('liveToast');
 
 document.addEventListener('DOMContentLoaded', () => {
     let result = {}
@@ -14,9 +16,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }})
     .then((result) => {
             const {data: itemArray} = result;
-            const { category, cost, 
+            const { id, category, cost, 
                     currency, description, 
                     images, name, soldCount, relatedProducts } = itemArray
+            toCartS = {id: id, name: name, unitCost:cost, currency, image: images[0]};            
             document.getElementById('itemName').innerHTML = name
             document.getElementById('item-cont').innerHTML = `
             <h5><strong>Precio</strong></h5>
@@ -99,6 +102,34 @@ document.addEventListener('DOMContentLoaded', () => {
         })  
 })
 
+//Desafiate entrega 5
+function addCart(){
+    let actual = []
+    localStorage.getItem('clientCart') == null ? //Checkeo si existe o no localStorage
+    (actual.push(toCartS),
+    localStorage.setItem('clientCart', JSON.stringify(actual)), //Si no existe, lo agrego
+    toastShow()):
+    (JSON.parse(localStorage.getItem('clientCart')).forEach(pr => { //Si existe lo recorro para que me quede un array plano
+        actual.push(pr)
+    }),
+    actual.find(element => element.id == toCartS.id) == undefined ? //Verifico que el producto a agregar no este ya en el carrito
+    (actual.push(toCartS),
+    localStorage.setItem('clientCart', JSON.stringify(actual)),
+    toastShow()):
+    alreadyInCart())
+}
+
+function alreadyInCart(){
+    document.getElementById('liveToast').classList.replace('bg-success', 'bg-danger');
+    document.getElementById('toastBody').innerHTML = 'El producto ya existe en el carrito!'
+    const toast = new bootstrap.Toast(toastLiveExample)
+    toast.show()
+}
+function toastShow(){
+    const toast = new bootstrap.Toast(toastLiveExample)
+    toast.show()
+}
+
 function setProdID(id){
     localStorage.setItem('prodID', id)
     window.location.href = 'product-info.html'
@@ -180,4 +211,5 @@ function checkUserComment() {
         }
     ;}    
 }
+
 

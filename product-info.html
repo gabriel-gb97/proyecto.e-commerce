@@ -46,8 +46,34 @@
   </nav>
   <main>
     <div class="container">
-        <div class="text-left pb-2 pt-4">
-          <h2 id = 'itemName' ></h2>
+        <div class="toast-container top-0 start-50 translate-middle-x p-3" style="position: absolute">
+          <div id="liveToast" class="toast bg-success bg-gradient text-white" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+              <strong class="me-auto">eMercado</strong>
+              <small>eM</small>
+              <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body" id="toastBody">
+              El producto ha sido agregado con exito!
+            </div>
+          </div>
+        </div>
+        <div class="text-left pb-2 pt-4 row">
+          <div class="col-md-8">
+            <h2 id = 'itemName' ></h2>
+          </div>
+          <div class="col-md-3 d-flex justify-content-center">
+            <div class="btn-group">
+              <button type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                Comprar
+              </button>
+              <ul class="dropdown-menu dropdown-menu-dark">
+                <li><a class="dropdown-item text-white" onclick="addCart()" href="cart.html">Agregar e ir al carrito.</a></li>
+                <li><a class="dropdown-item text-white" onclick="addCart()" href="#">Agregar al carrito.</a></li>
+              </ul>
+            </div>
+          </div>
+          
         </div>
         <hr>
         <div class="row">
