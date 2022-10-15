@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", async () =>{
         cartInfo.push(prod)
         
     })):
-    cartInfo
+    cartInfo;
 
     for(prod of cartInfo){
         const {image, name, currency, unitCost, id} = prod
@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", async () =>{
             <td>${name}</td>
             <td>${currency} ${unitCost}</td>
             <td><input id="${id}" class="form-control" type="text" style="width: 3rem" value = "1" inputmode="numeric"></td>
-            <td style="width: 200px">${currency} <span>${unitCost}</span></td>
+            <td style="width: 200px"><b>${currency}</b> <b><span>${unitCost}</b></span></td>
         </tr>
         `
     }

@@ -121,6 +121,7 @@ function addCart(){
             alreadyInCart();
         }
     }
+    //Intente trabajar con operacion ternaria en esta parte pero quedaba muy confuso
     /*
     localStorage.getItem('clientCart') == null ? //Checkeo si existe o no localStorage
     (actual.push(toCartS),
