@@ -105,6 +105,23 @@ document.addEventListener('DOMContentLoaded', () => {
 //Desafiate entrega 5
 function addCart(){
     let actual = []
+    if(localStorage.getItem('clientCart') == null){
+        actual.push(toCartS);
+        localStorage.setItem('clientCart', JSON.stringify(actual));
+        toastShow();
+    }else{
+        JSON.parse(localStorage.getItem('clientCart')).forEach(pr => { 
+            actual.push(pr)
+        })
+        if(actual.find(element => element.id == toCartS.id) == undefined){
+            actual.push(toCartS);
+            localStorage.setItem('clientCart', JSON.stringify(actual));
+            toastShow()
+        }else{
+            alreadyInCart();
+        }
+    }
+    /*
     localStorage.getItem('clientCart') == null ? //Checkeo si existe o no localStorage
     (actual.push(toCartS),
     localStorage.setItem('clientCart', JSON.stringify(actual)), //Si no existe, lo agrego
@@ -117,6 +134,7 @@ function addCart(){
     localStorage.setItem('clientCart', JSON.stringify(actual)),
     toastShow()):
     alreadyInCart())
+    */
 }
 
 function alreadyInCart(){
