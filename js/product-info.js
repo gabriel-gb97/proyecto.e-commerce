@@ -103,18 +103,18 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 
 //Desafiate entrega 5
-function addCart(){
+function addCart(prodToCart){
     let actual = []
     if(localStorage.getItem('clientCart') == null){
-        actual.push(toCartS);
+        actual.push(prodToCart);
         localStorage.setItem('clientCart', JSON.stringify(actual));
         toastShow();
     }else{
         JSON.parse(localStorage.getItem('clientCart')).forEach(pr => { 
             actual.push(pr)
         })
-        if(actual.find(element => element.id == toCartS.id) == undefined){
-            actual.push(toCartS);
+        if(actual.find(element => element.id == prodToCart.id) == undefined){
+            actual.push(prodToCart);
             localStorage.setItem('clientCart', JSON.stringify(actual));
             toastShow()
         }else{
