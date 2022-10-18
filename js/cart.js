@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", async () =>{
         cartInfo = JSON.parse(localStorage.getItem('clientCart'))
     }
 
+    //Cotizaciones actualizadas para conversion de UYU
     const exchangResponse = await fetch(exchangeURL);
     exchange = await exchangResponse.json()
 
@@ -31,8 +32,10 @@ document.addEventListener('input',(e) => {
         prodLine = cartInfo.find((prod) => prod.id == e.target.id);
         
         e.data == null ?
-        itemTarget.innerHTML = `<span class='costToAdd${prodLine.currency}'>${prodLine.unitCost}</span>`:
-        itemTarget.innerHTML = `<span class='costToAdd${prodLine.currency}'>${prodLine.unitCost * parseInt(e.target.value)}</span>`;
+        itemTarget.innerHTML = `
+            <span class='costToAdd${prodLine.currency}'>${prodLine.unitCost}</span>`:
+        itemTarget.innerHTML = `
+            <span class='costToAdd${prodLine.currency}'>${prodLine.unitCost * parseInt(e.target.value)}</span>`;
 
         calcSubT()
     }
