@@ -3,19 +3,20 @@ const exchangeURL = 'https://cotizaciones-brou.herokuapp.com/api/currency/latest
 let exchange = [];
 
 document.addEventListener("DOMContentLoaded", async () =>{
-    const response = await fetch(CART_INFO_URL+"25801.json")
-    const result = await response.json()
-    cartInfo = result.articles;
     
+    if((localStorage.getItem('clientCart') == '[]') || (localStorage.getItem('clientCart') == undefined) ){
+        const response = await fetch(CART_INFO_URL+"25801.json")
+        const result = await response.json()
+        cartInfo = result.articles;
+        localStorage.setItem('clientCart', JSON.stringify(cartInfo));
+        
+    }else{
+        cartInfo = JSON.parse(localStorage.getItem('clientCart'))
+    }
+
     const exchangResponse = await fetch(exchangeURL);
     exchange = await exchangResponse.json()
 
-    JSON.parse(localStorage.getItem('clientCart')) != undefined ?
-    (JSON.parse(localStorage.getItem('clientCart')).forEach(prod => {
-        cartInfo.push(prod)
-        
-    })):
-    cartInfo;
     showCart(cartInfo)
     calcSubT();
     document.querySelectorAll('#creditcard', '#banktransfer').forEach(input =>{
@@ -26,7 +27,6 @@ document.addEventListener("DOMContentLoaded", async () =>{
 
 document.addEventListener('input',(e) => {
     if(e.target.type == 'number'){
-
         const itemTarget = e.target.parentNode.nextElementSibling.lastChild;
         prodLine = cartInfo.find((prod) => prod.id == e.target.id);
         
@@ -123,18 +123,23 @@ function buyValidation(){
         }
     })
 
+    payError = 0
     document.querySelectorAll('input.creditcard, input.banktransfer').forEach(input =>{ 
-        if((!input.disabled) && (input.value == '') ){
+        if((!input.disabled) && (input.value == '')){
             methodCont.classList.add('is-invalid')
+            payError += 1
             errorCounter += 1
         }
 
     })
+    if(payError == 0){
+        methodCont.classList.remove('is-invalid')
+    }
 
     if(errorCounter == 0){
         buyAlert.innerHTML = `
         <div class="alert alert-success alert-dismissible" role="alert" style='z-index: 100000'>
-            <div>Compraste</div>
+            <div>Has comprado con éxito!</div>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         `
@@ -148,7 +153,6 @@ function deleteCartItem(id){
     afterDelete = actualCart.filter( prod => prod.id != id);
     localStorage.setItem('clientCart', JSON.stringify(afterDelete));
 
-    afterDelete.unshift(cartInfo[0]) //Vuelvo a agregar el peugeot 208 en la primera posicion
     showCart(afterDelete); 
     calcSubT();
 }
