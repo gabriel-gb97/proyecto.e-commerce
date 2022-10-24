@@ -121,21 +121,6 @@ function addCart(prodToCart){
             alreadyInCart();
         }
     }
-    //Intente trabajar con operacion ternaria en esta parte pero quedaba muy confuso
-    /*
-    localStorage.getItem('clientCart') == null ? //Checkeo si existe o no localStorage
-    (actual.push(toCartS),
-    localStorage.setItem('clientCart', JSON.stringify(actual)), //Si no existe, lo agrego
-    toastShow()):
-    (JSON.parse(localStorage.getItem('clientCart')).forEach(pr => { //Si existe lo recorro para que me quede un array plano
-        actual.push(pr)
-    }),
-    actual.find(element => element.id == toCartS.id) == undefined ? //Verifico que el producto a agregar no este ya en el carrito
-    (actual.push(toCartS),
-    localStorage.setItem('clientCart', JSON.stringify(actual)),
-    toastShow()):
-    alreadyInCart())
-    */
 }
 
 function alreadyInCart(){

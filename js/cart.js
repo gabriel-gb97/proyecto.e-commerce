@@ -72,7 +72,7 @@ function showCart(array){
             <th scope="row"><img src="${image}" class="img-thumbnail" alt="..." style="width: 100px;"></th>
             <td>${name}</td>
             <td>${currency} ${unitCost}</td>
-            <td><input id="${id}" class="form-control" type="number" style="width: 4rem" value = "1" inputmode="numeric"></td>
+            <td><input id="${id}" class="form-control" type="number" style="width: 4rem" min='0' value = "1" inputmode="numeric"></td>
             <td style="width: 150px"><b>${currency}</b> <b><span class="costToAdd${currency}" >${unitCost}</b></span></td>
             <td class='text-center' style='width:70px'>
             <button onclick="deleteCartItem(${id})" type="button" class="btn btn-outline-danger">
@@ -109,7 +109,7 @@ function paymentMethod(){
 function buyValidation(){
     errorCounter = 0
     document.querySelectorAll('input[type=number]').forEach(input => {
-        if(input.value == ""){
+        if((input.value == "") || (parseInt(input.value) <= 0)){
             errorCounter += 1
             input.classList.add('border','border-danger')
         }else{
@@ -138,6 +138,8 @@ function buyValidation(){
     if(payError == 0){
         methodCont.classList.remove('is-invalid')
     }
+
+    
 
     if(errorCounter == 0){
         buyAlert.innerHTML = `
