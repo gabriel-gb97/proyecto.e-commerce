@@ -47,39 +47,50 @@
     <div class="container" style="max-width: 1080px">
       <h4 class="text-center pt-5">Carrito de compras</h4>
       <h5 class="pt-3">Articulos a comprar</h5>
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col"></th>
-            <th scope="col">Nombre</th>
-            <th scope="col">Costo</th>
-            <th scope="col">Cantidad</th>
-            <th scope="col">SubTotal</th>
-            <th scope="col"></th>
-          </tr>
-        </thead>
-        <tbody class="table-group-divider" id="tableCart">
-        </tbody>
-      </table>
+      <div id="cartTable">
+        <table class="table" id="itemTable">
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col">Nombre</th>
+              <th scope="col">Costo</th>
+              <th scope="col">Cantidad</th>
+              <th scope="col">SubTotal</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody class="table-group-divider" id="tableCart">
+
+          </tbody>
+        </table>
+        <div class="invalid-feedback">
+          Los campos de cantidad no pueden estar vacios o ser cero, eliminar en caso de no deseear el articulo.
+        </div>
+      </div>
       <hr>
       <h5 class="pt-3">Tipo de envio</h5>
-      <div class="form-check pt-3">
-        <input class="form-check-input" onclick="calcSubT()" type="radio" name="shipCost" id="ship1" value="0.15" checked>
-        <label class="form-check-label" for="ship1">
-          Premium 2 a 5 días (15%)
-        </label>
+      <div id="shipPreferences">
+        <div class="form-check pt-3">
+          <input class="form-check-input" onclick="calcSubT()" type="radio" name="shipCost" id="ship1" value="0.15" checked>
+          <label class="form-check-label" for="ship1">
+            Premium 2 a 5 días (15%)
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" onclick="calcSubT()" type="radio" name="shipCost" value="0.07" id="ship2">
+          <label class="form-check-label" for="ship2">
+            Express 5 a 8 días (7%)
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" onclick="calcSubT()" type="radio" name="shipCost" value="0.05" id="ship3">
+          <label class="form-check-label" for="ship3">
+            Standard 12 a 15 días (5%)
+          </label>
+        </div>
       </div>
-      <div class="form-check">
-        <input class="form-check-input" onclick="calcSubT()" type="radio" name="shipCost" value="0.07" id="ship2">
-        <label class="form-check-label" for="ship2">
-          Express 5 a 8 días (7%)
-        </label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" onclick="calcSubT()" type="radio" name="shipCost" value="0.05" id="ship3">
-        <label class="form-check-label" for="ship3">
-          Standard 12 a 15 días (5%)
-        </label>
+      <div class="invalid-feedback">
+        Debe seleccionar un tipo de envio.
       </div>
       <h5 class="pt-3">Dirección de envío</h5>
       <form class="row g-3 pt-3 pb-3">
