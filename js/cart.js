@@ -15,8 +15,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     //Cotizaciones actualizadas para conversion de UYU
-    const exchangResponse = await fetch(exchangeURL);
-    exchange = await exchangResponse.json()
+    const exchangeResponse = await fetch(exchangeURL);
+    exchange = await exchangeResponse.json()
 
     showCart(cartInfo)
     calcSubT();
@@ -52,14 +52,14 @@ function calcSubT() {
     document.querySelectorAll(".costToAddUYU").forEach(cost => {
         subtotal += parseInt(cost.innerHTML) / exchange.rates.USD.sell
     })
-    subT.innerHTML = `USD ${(Math.round(subtotal * 100)/100).toLocaleString('en-US', {minimumFractionDigits: 2})}`
+    subT.innerHTML = `USD ${(Math.round(subtotal * 100) / 100).toLocaleString('en-US', { minimumFractionDigits: 2 })}`
 
     shipPercent = parseFloat(document.querySelector('input[name=shipCost]:checked').value)
     shipCost = subtotal * shipPercent
-    shipP.innerHTML = `USD ${(Math.round(shipCost * 100)/100).toLocaleString('en-US', {minimumFractionDigits: 2})}`
+    shipP.innerHTML = `USD ${(Math.round(shipCost * 100) / 100).toLocaleString('en-US', { minimumFractionDigits: 2 })}`
 
     totalPrice = subtotal + shipCost
-    total.innerHTML = `USD ${(Math.round(totalPrice * 100)/100).toLocaleString('en-US', {minimumFractionDigits: 2})}`
+    total.innerHTML = `USD ${(Math.round(totalPrice * 100) / 100).toLocaleString('en-US', { minimumFractionDigits: 2 })}`
 
 }
 
@@ -166,8 +166,7 @@ function paymentValidation() {
 
     })
 
-    //Estoy aprendiendo jQuery y lo utilice para probar
-    return (error == 0 ? ($('#methodCont').addClass('is-invalid'), true) :
+    return (error == 0 ? (methodCont.classList.remove('is-invalid'), true) :
         false)
 
 
