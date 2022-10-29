@@ -31,7 +31,10 @@ document.addEventListener('input', (e) => {
         const itemTarget = e.target.parentNode.nextElementSibling.lastChild;
         prodLine = cartInfo.find((prod) => prod.id == e.target.id);
 
-        e.data == null ?
+        //Despues de grabar y al probar en chrome vi que no trae el atributo del event.data
+        //Yo trabajo con mozilla y no me pasaba, entonces lo cambie por e.target.value
+        //e.data == null ?
+        e.target.value == null ?
             itemTarget.innerHTML = `
             <span class='costToAdd${prodLine.currency}'>${prodLine.unitCost}</span>` :
             itemTarget.innerHTML = `
