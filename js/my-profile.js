@@ -1,6 +1,7 @@
 const email = document.getElementById("e-mail");
+email.value = localStorage.getItem("regEmail");
 const form = document.getElementById("profileForm");
-let savedProfile = JSON.parse(localStorage.getItem("profileData"));
+let savedProfile = JSON.parse(localStorage.getItem(email.value));
 let imgReaderUrl = "";
 let reader = new FileReader();
 
@@ -15,7 +16,7 @@ document.addEventListener("input", () => {
         : ((saveChanges.disabled = true), formFields.classList.add("is-invalid"));
 });
 
-email.value = localStorage.getItem("regEmail");
+
 
 form.addEventListener("submit", (e) => {
     if (savedProfile != null) {
@@ -24,7 +25,7 @@ form.addEventListener("submit", (e) => {
         profileToSave = newTimeProfile();
     }
 
-    localStorage.setItem("profileData", JSON.stringify(profileToSave));
+    localStorage.setItem(email.value, JSON.stringify(profileToSave));
     showProfileData(profileToSave);
     profileImg.value = "";
     saveChanges.disabled = true;
@@ -35,6 +36,7 @@ form.addEventListener("submit", (e) => {
         </div>
         `;
     e.preventDefault();
+    form.classList.add('was-validated')
 });
 
 function showProfileData(object) {
@@ -48,7 +50,7 @@ function showProfileData(object) {
 
 function newTimeProfile() {
     let userProfile = {
-        imgURL: imgReaderUrl ? imgReaderUrl : null,
+        imgURL: imgReaderUrl ? imgReaderUrl : 'img/img_perfil.png',
     };
 
     document.querySelectorAll(".form-control").forEach((input) => {
