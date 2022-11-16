@@ -30,7 +30,14 @@
           <li class="nav-item">
             <a class="nav-link" href="sell.html">Vender</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="dropprofile">.</a>
+            <ul class="dropdown-menu">
+              <li><a href="cart.html" class="dropdown-item">Mi carrito</a></li>
+              <li><a href="my-profile.html" class="dropdown-item">Mi perfil</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a href="login.html" class="dropdown-item" id="logout">Cerrar sesión</a></li>
+            </ul>
           </li>
         </ul>
       </div>
@@ -100,6 +107,7 @@
     </div>
   </div>
   <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
   <script src="js/init.js"></script>
   <script src="js/categories.js"></script>
 </body>

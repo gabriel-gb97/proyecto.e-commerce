@@ -10,6 +10,7 @@
   <link href="css/font-awesome.min.css" rel="stylesheet">
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/productsinfo.css">
 </head>
 
 <body>
@@ -30,7 +31,14 @@
           <li class="nav-item">
             <a class="nav-link" href="sell.html">Vender</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="dropprofile">.</a>
+            <ul class="dropdown-menu">
+              <li><a href="cart.html" class="dropdown-item">Mi carrito</a></li>
+              <li><a href="my-profile.html" class="dropdown-item">Mi perfil</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a href="login.html" class="dropdown-item" id="logout">Cerrar sesión</a></li>
+            </ul>
           </li>
         </ul>
       </div>
@@ -38,9 +46,82 @@
   </nav>
   <main>
     <div class="container">
-      <div class="alert alert-danger text-center" role="alert">
-        <h4 class="alert-heading">Funcionalidad en desarrollo</h4>
-      </div>
+        <div class="toast-container top-0 start-50 translate-middle-x p-3" style="position: absolute">
+          <div id="liveToast" class="toast bg-success bg-gradient text-white" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+              <strong class="me-auto">eMercado</strong>
+              <small>eM</small>
+              <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body" id="toastBody">
+              El producto ha sido agregado con exito!
+            </div>
+          </div>
+        </div>
+        <div class="text-left pb-2 pt-4 row">
+          <div class="col-md-8">
+            <h2 class="text-center text-lg-start" id = 'itemName' ></h2>
+          </div>
+          <div class="col-md-3 d-flex justify-content-center">
+            <div class="btn-group">
+              <button type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                Comprar
+              </button>
+              <ul class="dropdown-menu dropdown-menu-dark">
+                <li><a class="dropdown-item text-white" onclick="addCart(toCartS)" href="cart.html">Agregar e ir al carrito.</a></li>
+                <li><a class="dropdown-item text-white" onclick="addCart(toCartS)" href="#">Agregar al carrito.</a></li>
+              </ul>
+            </div>
+          </div>
+          
+        </div>
+        <hr>
+        <div class="row">
+          <div class="pb-2 col-md-5" id="item-cont">
+
+          </div>
+          <div class="col-md-7 row justify-content-end px-0" id="">
+            <div id="productCarousel" class="carousel slide" data-bs-ride="carousel" style="width: 700px">
+              <div class="carousel-indicators justify-content-center" id="indicators" style="position: static;max-width: 660px; height: 130px; margin: auto">
+                
+              </div>
+              <div class="carousel-inner" id="img-container" style="height: 400px;">
+                
+              </div>
+            
+            </div>
+
+          </div>
+        </div>
+        
+        <hr>
+        <p style="font-size: 1.3rem">Comentarios</p>
+        <ul class="list-group" id="comment-list">
+
+        </ul>
+        <div class="row g-2">
+          <p style="font-size: 1.3rem; padding-top: 7px; margin-bottom: 1px;">Comentar</p>
+          <div class="col-md-6">
+            <p style="font-size: 1.1rem; margin: 0 ;padding-bottom: 0;">Tu opinon:</p>
+            <textarea class="form-control" id="description" rows="3"></textarea>
+          </div>
+          <p style="margin: 0; padding: 10px 0px 7px 0px">Tu puntuacion:</p>
+          <div class="col-md-2">
+            <select class="form-select form-select-sm" aria-label=".form-select-sm example" id='punt'>
+              <option value = '1' selected>1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+            <button type="button" class="btn btn-primary mt-3" id="opinion">Enviar</button>
+          </div>
+        </div>
+        <hr>
+        <div class="row mt-3" id="relatedCont">
+          <p style="font-size: 1.3rem">Productos relacionados</p>
+          
+        </div>  
     </div>
   </main>
   <footer class="text-muted">
@@ -62,6 +143,7 @@
     </div>
   </div>
   <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
   <script src="js/init.js"></script>
   <script src="js/product-info.js"></script>
 </body>

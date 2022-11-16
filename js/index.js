@@ -12,3 +12,11 @@ document.addEventListener("DOMContentLoaded", function(){
         window.location = "products.html"
     });
 });
+
+if(!localStorage.getItem('login')){
+    window.location.href = 'login.html'
+}
+
+logout.addEventListener('click', () =>{
+    localStorage.removeItem('login')
+})

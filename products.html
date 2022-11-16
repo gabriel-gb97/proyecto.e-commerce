@@ -30,16 +30,65 @@
           <li class="nav-item">
             <a class="nav-link" href="sell.html">Vender</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="dropprofile">.</a>
+            <ul class="dropdown-menu">
+              <li><a href="cart.html" class="dropdown-item">Mi carrito</a></li>
+              <li><a href="my-profile.html" class="dropdown-item">Mi perfil</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a href="login.html" class="dropdown-item" id="logout">Cerrar sesión</a></li>
+            </ul>
           </li>
         </ul>
       </div>
     </div>
   </nav>
-  <main class="pb-5 container">
+  <main class="pb-5">
+    <div class="text-center p-4">
+      <h2>Productos</h2>
+      <p class="lead">Verás aquí todos los productos de la categoria <b id = 'catName'></b></p>
+    </div>
     <div class="container">
-      <div class="alert alert-danger text-center" role="alert">
-        <h4 class="alert-heading">Funcionalidad en desarrollo</h4>
+      <div class="row">
+        <div class="col text-end">
+          <div class="btn-group btn-group-toggle mb-4" data-bs-toggle="buttons">
+            <input type="radio" class="btn-check" name="options" id="AscPrice">
+            <label class="btn btn-light orderBtn" for="AscPrice" id = 'UP'><i class="fas fa-sort-amount-down-alt mr-1"></i>$</label>
+            <input type="radio" class="btn-check" name="options" id="DescPrice">
+            <label class="btn btn-light orderBtn" for="DescPrice" id = 'DW'><i class="fas fa-sort-amount-down mr-1"></i>$</label>
+            <input type="radio" class="btn-check" name="options" id="sortSoldCount" checked>
+            <label class="btn btn-light orderBtn" for="sortSoldCount" id = 'SC'><i class="fas fa-sort-amount-down mr-1"></i>CantVendidos</label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-5">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="searchbar">
+        </div>
+        <div class="col-md-6 mb-1 container">
+          <div class="row container p-0 m-0">
+            <div class="col">
+              <p class="font-weight-normal text-end my-2">Precio.</p>
+            </div>
+            <div class="col">
+              <input class="form-control" type="number" placeholder="min." id="rangeFilterPriceMin">
+            </div>
+            <div class="col">
+              <input class="form-control" type="number" placeholder="máx." id="rangeFilterPriceMax">
+            </div>
+            <div class="col-3 p-0">
+              <div class="btn-group" role="group">
+                <button class="btn btn-light btn-block" id="rangeFilterPrice">Filtrar</button>
+                <button class="btn btn-link btn-sm" id="clearRangeFilter">Limpiar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="list-group" id="prod-container">
+            
+        </div>
       </div>
     </div>
   </main>
@@ -62,6 +111,7 @@
     </div>
   </div>
   <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
   <script src="js/init.js"></script>
   <script src="js/products.js"></script>
 </body>

@@ -39,3 +39,14 @@ let getJSONData = function(url){
         return result;
     });
 }
+
+if(!localStorage.getItem('login')){
+  window.location.href = 'login.html'
+}
+
+logout.addEventListener('click', () =>{
+  google.accounts.id.disableAutoSelect()
+  localStorage.removeItem('login')
+})
+
+document.getElementById('dropprofile').innerHTML = localStorage.getItem('regEmail')
