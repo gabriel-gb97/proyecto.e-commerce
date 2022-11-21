@@ -5,7 +5,7 @@ let exchange = [];
 document.addEventListener("DOMContentLoaded", async () => {
 
     if ((localStorage.getItem('clientCart') == '[]') || (localStorage.getItem('clientCart') == undefined)) {
-        const response = await fetch(CART_INFO_URL + "25801.json")
+        const response = await fetch(CART_INFO_URL)
         const result = await response.json()
         cartInfo = result.articles;
         localStorage.setItem('clientCart', JSON.stringify(cartInfo));
@@ -72,7 +72,7 @@ function showCart(array) {
         const { image, name, currency, unitCost, id } = prod
 
         tableCart.innerHTML += `
-        <tr class="align-middle">
+        <tr class="align-middle cart-item">
             <th scope="row"><img src="${image}" class="img-responsive" alt="..." style="width: 100px;"></th>
             <td>
                 ${name}
@@ -98,18 +98,18 @@ function showCart(array) {
 
 function paymentMethod() {
     if (document.getElementById('creditcard').checked) {
-        document.querySelectorAll('.banktransfer').forEach(input => {
+        document.querySelectorAll('input[type=text].banktransfer').forEach(input => {
             input.disabled = true
         })
-        document.querySelectorAll('.creditcard').forEach(input => {
+        document.querySelectorAll('input[type=text].creditcard').forEach(input => {
             input.disabled = false
         })
         payMethod.innerHTML = 'Tarjeta de credito'
     } else {
-        document.querySelectorAll('.banktransfer').forEach(input => {
+        document.querySelectorAll('input[type=text].banktransfer').forEach(input => {
             input.disabled = false
         })
-        document.querySelectorAll('.creditcard').forEach(input => {
+        document.querySelectorAll('input[type=text].creditcard').forEach(input => {
             input.disabled = true
         })
         payMethod.innerHTML = 'Transferencia bancaria'
@@ -175,7 +175,7 @@ function paymentValidation() {
 
 }
 
-function buyValidation() {
+async function buyValidation() {
     //Caso que se hayan eliminado todos los articulos del carrito y se clickee el boton de finalizar compra
     if (document.getElementById('tableCart').childElementCount == 0) {
         buyAlert.innerHTML = `
@@ -198,8 +198,22 @@ function buyValidation() {
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         `
-    }
+        cartToSave = saveCart();
+        //Push de la compra
+        await fetch('http://localhost:3000/buy_cart', {
+            method: 'POST',
+            headers: { 'Content-type': 'application/json' },
+            body: JSON.stringify(cartToSave)
+        })
 
+        //Limpieza del formulario y el carrito
+        document.querySelectorAll('input').forEach(input => {
+            input.value = ''
+        })
+
+        localStorage.removeItem('clientCart')
+        showCart([])
+    }
 }
 
 //Desafiate entrega 6
@@ -210,4 +224,47 @@ function deleteCartItem(id) {
 
     showCart(afterDelete);
     calcSubT();
+}
+
+//Desafiate entrega 8
+function saveCart() {
+    const cartToSave = {
+        products: [],
+        typeOfShipment: "",
+        addressInfo: {},
+        selectedPayment: {},
+        totalPurchase: 0
+    }
+
+    document.querySelectorAll('.cart-item').forEach(item => {
+        cartToSave.products.push({
+            prodID: item.cells[3].children[0].id,
+            quantity: item.cells[3].children[0].value
+        })
+    })
+
+    document.querySelectorAll('input[name=shipCost]').forEach(input => {
+        if (input.checked) {
+            cartToSave.typeOfShipment = input.id
+        }
+    })
+
+    document.querySelectorAll('input[name=address]').forEach(element => {
+        cartToSave.addressInfo[element.id] = element.value
+    })
+
+    document.querySelectorAll('input[name=paymethod]').forEach(payment => {
+        if (payment.checked) {
+            toAppend = {}
+            document.querySelectorAll(`input[type=text].${payment.id}`).forEach(payInfo => {
+                toAppend[payInfo.name] = payInfo.value
+            })
+            cartToSave.selectedPayment[payment.id] = toAppend
+        }
+    })
+
+    cartToSave.totalPurchase = parseFloat(total.innerText.split(' ')[1].replace(',', '').replace('.', ','))
+
+    return cartToSave
+
 }

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>eMercado - Todo lo que busques está aquí</title>
+  <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/font-awesome.min.css" rel="stylesheet">
+  <link href="css/styles.css" rel="stylesheet">
+</head>
+
+<body>
+  <div id="buyAlert"></div>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-1">
+    <div class="container">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav w-100 justify-content-between">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">Inicio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="categories.html">Categorías</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="sell.html">Vender</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"
+              id="dropprofile">.</a>
+            <ul class="dropdown-menu">
+              <li><a href="cart.html" class="dropdown-item">Mi carrito</a></li>
+              <li><a href="my-profile.html" class="dropdown-item">Mi perfil</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a href="login.html" class="dropdown-item" id="logout">Cerrar sesión</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <main>
+    <div class="container " style="max-width: 1080px">
+      <h4 class="text-center pt-5">Carrito de compras</h4>
+      <h5 class="pt-3">Articulos a comprar</h5>
+        <div id="cartTable">
+          <table class="table" id="itemTable">
+            <thead>
+              <tr>
+                <th scope="col"></th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Costo</th>
+                <th scope="col">Cantidad</th>
+                <th scope="col">SubTotal</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody class="table-group-divider" id="tableCart">
+
+            </tbody>
+          </table>
+          <div class="invalid-feedback">
+            Los campos de cantidad no pueden estar vacios o ser cero, eliminar en caso de no deseear el articulo.
+          </div>
+        </div>
+        <hr>
+        <h5 class="pt-3">Tipo de envio</h5>
+        <div id="shipPreferences">
+          <div class="form-check pt-3">
+            <input class="form-check-input" onclick="calcSubT()" type="radio" name="shipCost" id="Premium" value="0.15"
+              checked>
+            <label class="form-check-label" for="Premium">
+              Premium 2 a 5 días (15%)
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" onclick="calcSubT()" type="radio" name="shipCost" value="0.07" id="Express">
+            <label class="form-check-label" for="Express">
+              Express 5 a 8 días (7%)
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" onclick="calcSubT()" type="radio" name="shipCost" value="0.05" id="Standard">
+            <label class="form-check-label" for="Standard">
+              Standard 12 a 15 días (5%)
+            </label>
+          </div>
+        </div>
+        <div class="invalid-feedback">
+          Debe seleccionar un tipo de envio.
+        </div>
+        <h5 class="pt-3">Dirección de envío</h5>
+        <div class="row g-3 pt-3 pb-3">
+          <div class="col-md-6">
+            <label for="Street" class="form-label" name="street">Calle</label>
+            <input type="text" class="form-control" name="address" id="Street">
+            <div class="invalid-feedback">
+              Ingresa una calle
+            </div>
+          </div>
+          <div class="col-md-4">
+            <label for="Number" class="form-label" name="addressNumber">Numero</label>
+            <input type="text" class="form-control" name="address" id="Number">
+            <div class="invalid-feedback">
+              Ingresa un numero
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label for="Aditional_street" class="form-label" name="aditionalStreet">Esquina</label>
+            <input type="text" class="form-control" name="address" id="Aditional_street">
+            <div class="invalid-feedback">
+              Ingresa una esquina
+            </div>
+          </div>
+
+        </div>
+        <hr>
+        <h5>Costos</h5>
+        <ul class="list-group">
+          <li class="list-group-item d-flex justify-content-between align-items-start">
+            <div class="ms-2 me-auto">
+              <div> Subtotal </div>
+              <span class="text-muted">
+                Costo unitario del producto por cantidad
+              </span>
+            </div>
+            <div id="subT"></div>
+          </li>
+          <li class="list-group-item d-flex justify-content-between align-items-start">
+            <div class="ms-2 me-auto">
+              <div> Costo de envío </div>
+              <span class="text-muted">
+                Según el tipo de envío
+              </span>
+            </div>
+            <div id="shipP"></div>
+          </li>
+          <li class="list-group-item d-flex justify-content-between align-items-start">
+            <div class="ms-2 me-auto">
+              <div> Total (USD) </div>
+              <span class="text-muted fst-italic fs-6">
+                Todos los valores son llevados a USD al tipo de cambio del día
+              </span>
+            </div>
+            <div class="fw-bold" id="total"></div>
+          </li>
+        </ul>
+        <hr>
+        <h5>Forma de pago</h5>
+        <p class="mt-3" id="methodCont">
+          <span class="pe-3" id="payMethod">No se ha seleccionado</span>
+          <a href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Seleccionar medio de pago.</a>
+        </p>
+        <div class="invalid-feedback">
+          Debe seleccionar un medio de pago.
+        </div>
+
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+          aria-labelledby="staticBackdropLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Forma de pago</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" onclick="paymentMethod()" name="paymethod"
+                    id="creditcard">
+                  <label class="form-check-label" for="creditcard">
+                    Tarjeta de crédito
+                  </label>
+                </div>
+                <hr>
+                <div class="row">
+                  <div class="col-6">
+                    Número de tarjeta
+                    <input type="text" class="form-control creditcard" name="cardNumber" placeholder="" aria-label="">
+                  </div>
+                  <div class="col-4">
+                    Código de seg
+                    <input type="text" class="form-control creditcard" name="safetyCode" placeholder="" aria-label="">
+                  </div>
+                  <div class="col-8 pt-3">
+                    Vencimiento (MM/AA)
+                    <input type="text" class="form-control creditcard" name="expireDate" placeholder="" aria-label="">
+                  </div>
+                </div>
+                <hr>
+                <div class="form-check">
+                  <input class="form-check-input banktransfer" type="radio" onclick="paymentMethod()" name="paymethod"
+                    id="banktransfer">
+                  <label class="form-check-label" for="banktransfer">
+                    Transferencia Bancaria
+                  </label>
+                </div>
+                <hr>
+                <div class="col-6">
+                  Número de cuenta
+                  <input type="text" class="form-control banktransfer" name="accountNumber" placeholder="" aria-label="">
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="d-grid pt-3">
+          <button class="btn btn-primary" type="submit" id="buy">Finalizar compra</button>
+        </div>
+    </div>
+  </main>
+  <footer class="text-muted">
+    <div class="container">
+      <p class="float-end">
+        <a href="#">Volver arriba</a>
+      </p>
+      <p>Este sitio forma parte de <a href="https://jovenesaprogramar.edu.uy/" target="_blank">Jovenes a Programar</a> -
+        2022</p>
+      <p>Clickea <a target="_blank" href="Letra.pdf">aquí</a> para descargar la letra del obligatorio.</p>
+    </div>
+  </footer>
+  <div id="spinner-wrapper">
+    <div class="lds-ring">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script src="js/init.js"></script>
+  <script src="js/cart.js"></script>
+</body>
+
+</html>

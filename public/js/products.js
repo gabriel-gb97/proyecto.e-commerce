@@ -1,5 +1,5 @@
 const catId = localStorage.getItem('catID')
-const url =  `https://japceibal.github.io/emercado-api/cats_products/${catId}.json`
+const url =  PRODUCTS_URL+`${catId}.json`
 let filterProd = []
 
 //Peticion de informacion al api y escritura del html
