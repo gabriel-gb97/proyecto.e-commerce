@@ -10,27 +10,27 @@ app.use(express.static("public"))
 
 app.get('/cats', (req, res) => {
     const result = fs.readFileSync('./apis/cats/cat.json')
-    res.send(result)
+    res.send(JSON.parse(result))
 })
 
 app.get('/cats_products/:id', (req, res) => {
     const result = fs.readFileSync(`./apis/cats_products/${req.params.id}`)
-    res.send(result)
+    res.send(JSON.parse(result))
 })
 
 app.get('/products/:id', (req, res) => {
     const result = fs.readFileSync(`./apis/products/${req.params.id}`)
-    res.send(result)
+    res.send(JSON.parse(result))
 })
 
 app.get('/products_comments/:id', (req, res) => {
     const result = fs.readFileSync(`./apis/products_comments/${req.params.id}`)
-    res.send(result)
+    res.send(JSON.parse(result))
 })
 
 app.get('/default_cart', (req, res) => {
     const result = fs.readFileSync(`./apis/user_cart/25801.json`)
-    res.send(result)
+    res.send(JSON.parse(result))
 })
 
 app.post('/buy_cart', (req, res) => {
