@@ -213,6 +213,7 @@ async function buyValidation() {
 
         localStorage.removeItem('clientCart')
         showCart([])
+        calcSubT()
     }
 }
 

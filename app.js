@@ -9,27 +9,27 @@ app.use(express.json())
 app.use(express.static("public"))
 
 app.get('/cats', (req, res) => {
-    const result = fs.readFileSync('./apis/cats/cat.json')
+    const result = fs.readFileSync('./jsons/cats/cat.json')
     res.send(JSON.parse(result))
 })
 
 app.get('/cats_products/:id', (req, res) => {
-    const result = fs.readFileSync(`./apis/cats_products/${req.params.id}`)
+    const result = fs.readFileSync(`./jsons/cats_products/${req.params.id}`)
     res.send(JSON.parse(result))
 })
 
 app.get('/products/:id', (req, res) => {
-    const result = fs.readFileSync(`./apis/products/${req.params.id}`)
+    const result = fs.readFileSync(`./jsons/products/${req.params.id}`)
     res.send(JSON.parse(result))
 })
 
 app.get('/products_comments/:id', (req, res) => {
-    const result = fs.readFileSync(`./apis/products_comments/${req.params.id}`)
+    const result = fs.readFileSync(`./jsons/products_comments/${req.params.id}`)
     res.send(JSON.parse(result))
 })
 
 app.get('/default_cart', (req, res) => {
-    const result = fs.readFileSync(`./apis/user_cart/25801.json`)
+    const result = fs.readFileSync(`./jsons/user_cart/25801.json`)
     res.send(JSON.parse(result))
 })
 
@@ -39,15 +39,15 @@ app.post('/buy_cart', (req, res) => {
 
     try {
         try {
-            actual = fs.readFileSync('./apis/buy_cart/cartHistory.json')
+            actual = fs.readFileSync('./jsons/buy_cart/cartHistory.json')
         } finally {
             if (actual != undefined) {
                 const toSave = JSON.parse(actual)
                 toSave.push(request)
-                fs.writeFileSync('./apis/buy_cart/cartHistory.json', JSON.stringify(toSave, null, 2))
+                fs.writeFileSync('./jsons/buy_cart/cartHistory.json', JSON.stringify(toSave, null, 2))
             } else {
                 const toSave = [request]
-                fs.writeFileSync('./apis/buy_cart/cartHistory.json', JSON.stringify(toSave, null, 2))
+                fs.writeFileSync('./jsons/buy_cart/cartHistory.json', JSON.stringify(toSave, null, 2))
             }
 
             res.send({ messege: 'Cart saved successfully' })

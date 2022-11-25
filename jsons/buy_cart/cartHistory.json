@@ -1,0 +1,72 @@
+[
+  {
+    "products": [
+      {
+        "prodID": "50924",
+        "quantity": "1"
+      }
+    ],
+    "typeOfShipment": "Express",
+    "addressInfo": {
+      "Street": "asdf",
+      "Number": "asdf",
+      "Aditional_street": "asdf"
+    },
+    "selectedPayment": {
+      "banktransfer": {
+        "accountNumber": "asdf"
+      }
+    },
+    "totalPurchase": 16264
+  },
+  {
+    "products": [
+      {
+        "prodID": "50924",
+        "quantity": "1"
+      },
+      {
+        "prodID": "50921",
+        "quantity": "1"
+      }
+    ],
+    "typeOfShipment": "Premium",
+    "addressInfo": {
+      "Street": "Hola",
+      "Number": "123",
+      "Aditional_street": "Aaaa"
+    },
+    "selectedPayment": {
+      "banktransfer": {
+        "accountNumber": "123"
+      }
+    },
+    "totalPurchase": 33005
+  },
+  {
+    "products": [
+      {
+        "prodID": "50741",
+        "quantity": "1"
+      },
+      {
+        "prodID": "60801",
+        "quantity": "1"
+      }
+    ],
+    "typeOfShipment": "Standard",
+    "addressInfo": {
+      "Street": "Hola",
+      "Number": "asdf",
+      "Aditional_street": "asdf"
+    },
+    "selectedPayment": {
+      "creditcard": {
+        "cardNumber": "asdf",
+        "safetyCode": "asdf",
+        "expireDate": "asdf"
+      }
+    },
+    "totalPurchase": 166
+  }
+]
